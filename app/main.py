@@ -1,0 +1,6 @@
+from fastapi import FastAPI
+from .routes import http, websocket
+
+app = FastAPI(title="Chat com websocket e histórico no MongoDB")
+
+app.include_router(http.router)
