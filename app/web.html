@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat WebSocket - Estilo XP</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/xp.css">
+
+    <style>
+        body {
+            /* Cor de fundo padrão do Windows XP */
+            background-color: #3a6ea5;
+            color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Remova o estilo inline e adicione-o aqui para maior organização */
+        .window {
+            width: 450px; /* Aumenta a largura da janela */
+        }
+
+        .window-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+        
+        /* Aumente a altura da área de mensagens */
+        #mensagens {
+            height: 300px; /* Aumenta a altura da área de visualização */
+            overflow-y: auto;
+            border: 1px solid #000;
+            margin: 10px 0;
+            width: 100%;
+        }
+        
+        /* Adiciona espaçamento e garante que os grupos de input ocupem toda a largura */
+        .input-group,
+        .message-input-group {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .message-input-group input {
+            flex-grow: 1;
+            margin-right: 5px;
+        }
+        
+        label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Estilos adicionais para o visual XP */
+        button {
+            width: auto;
+            min-width: 80px;
+        }
+
+        .input-group input {
+            width: auto;
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="title-bar">
+            <div class="title-bar-text">Chat WebSocket</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+
+        <div class="window-body">
+            <div class="input-group">
+                <label>
+                    Sala: <input type="text" id="sala" value="sala1">
+                </label>
+            </div>
+            
+            <div class="input-group">
+                <label>
+                    Nickname: <input type="text" id="nickname" value="danilu">
+                </label>
+            </div>
+            
+            <button id="btnEntrar">Entrar</button>
+            
+            <div id="mensagens"></div>
+            
+            <div class="message-input-group">
+                <input type="text" id="mensagem" placeholder="Digite sua mensagem">
+                <button id="btnEnviar">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let ws;
+        const chat = document.getElementById("mensagens");
+        const salaInput = document.getElementById("sala");
+        const nicknameInput = document.getElementById("nickname");
+        const mensagemInput = document.getElementById("mensagem");
+        const btnEntrar = document.getElementById("btnEntrar");
+        const btnEnviar = document.getElementById("btnEnviar");
+
+        document.getElementById("btnEntrar").onclick = () => {
+            alert("Entrou na sala");
+            const sala = salaInput.value;
+            const nickname = nicknameInput.value;
+            alert(`Entrou na sala ${sala} como ${nickname}`);
+            ws = new WebSocket(`ws://192.168.254.166:777/ws/${sala}?nickname=${nickname}`);
+            alert(`Conectado ao servidor WebSocket em ws://192.168.254.166:777/ws/${sala}?nickname=${nickname}`);
+        };
+    </script>
+</body>
+</html>
